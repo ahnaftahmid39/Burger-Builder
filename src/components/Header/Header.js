@@ -8,14 +8,11 @@ import {
 } from 'reactstrap';
 import './Header.css'
 import Logo from '../../assets/logo.png'
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
+function Header() {
+    const token = useSelector(state => state.token)
 
-const matStateToProps = state => ({
-    token: state.token
-})
-
-function Header(props) {
     let links = (
         <Nav className='mr-md-5'>
             <NavItem>
@@ -25,6 +22,23 @@ function Header(props) {
             </NavItem>
         </Nav>
     )
+    if (token) {
+        links = (
+            <Nav className='mr-md-5'>
+                <NavItem>
+                    <NavLink exact='true' to='/' className='NavLink'>
+                        Burger Builder
+                    </NavLink>
+                    <NavLink exact='true' to='/orders' className='NavLink'>
+                        Orders
+                    </NavLink>
+                    <NavLink exact='true' to='/logout' className='NavLink'>
+                        Logout
+                    </NavLink>
+                </NavItem>
+            </Nav>
+        )
+    }
 
 
     return (
@@ -46,4 +60,4 @@ function Header(props) {
     )
 }
 
-export default connect(matStateToProps)(Header)
+export default Header
