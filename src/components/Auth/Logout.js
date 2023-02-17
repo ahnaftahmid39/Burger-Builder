@@ -1,24 +1,43 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux';
+import React, { Component, useEffect } from 'react'
+import { connect, useDispatch } from 'react-redux';
 import { Route, Navigate, Routes } from 'react-router-dom';
 import { logout } from '../../Redux/authActionCreators';
 
-const mapDispatchToProps = dispatch => ({
-    logout: () => dispatch(logout())
-})
+// This is class component 
 
-class Logout extends Component {
-    componentDidMount() {
-        this.props.logout()
-    }
 
-    render() {
-        return (
-            <Routes>
-                <Route to='/*' element={<Navigate to="/" replace />} />
-            </Routes>
-        )
-    }
+// const mapDispatchToProps = dispatch => ({
+//     logout: () => dispatch(logout())
+// })
+
+// class Logout extends Component {
+//     componentDidMount() {
+//         this.props.logout()
+//     }
+
+//     render() {
+//         return (
+//             <Routes>
+//                 <Route to='/*' element={<Navigate to="/" replace />} />
+//             </Routes>
+//         )
+//     }
+// }
+
+// This is functional component
+
+const LogoutFC = () => {
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(logout())
+    }, [])
+
+    return (
+        <Routes>
+            <Route to='/*' element={<Navigate to="/" replace />} />
+        </Routes>
+    )
 }
-
-export default connect(null, mapDispatchToProps)(Logout)
+export default LogoutFC
+// export default connect(null, mapDispatchToProps)(Logout)

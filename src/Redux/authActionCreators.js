@@ -64,6 +64,7 @@ export const authFailed = errorMessage => ({
 })
 
 export const authCheck = () => dispatch => {
+    console.log('checking auth')
     const token = localStorage.getItem('token')
     if (token) {
         const expirationTime = new Date(localStorage.getItem('expirationTime'))
